@@ -2,7 +2,7 @@
 
 Official CBK (Cobak Token) contract sources — the new ERC20 token and the Ethereum swap contract used to migrate from the old CBK token.
 
-> **Status: deployed on Ethereum mainnet, under external audit.**
+> **Status: deployed on Ethereum mainnet · audited by CertiK** ([report](Cobak-CertiK-Audit.pdf)).
 > The swap is **not yet enabled** — the vault allowance is `0`, so `swap()` reverts. Do not use these addresses for migration until the official announcement.
 
 ## Contracts
@@ -46,6 +46,20 @@ The contract holds **no privileged role and no owner**. Its three parameters are
 
 The vault setting its allowance to `0` acts as the operational kill switch — no code change or admin call is involved.
 
+## Security Audit
+
+Both contracts were audited by **CertiK** — full report: [`Cobak-CertiK-Audit.pdf`](Cobak-CertiK-Audit.pdf).
+
+| Item | Value |
+| --- | --- |
+| Auditor | CertiK |
+| Final report | 2026-09-21 (preliminary 2026-09-16) |
+| Scope | `CBKToken.sol`, `TokenSwap.sol` |
+| Audited commit | [`4520c36`](https://github.com/cobak-dev/cbk-token-contract/commit/4520c36229c8631eb37f2a45aded5015e048c2e4) — contract sources unchanged since |
+| Methods | Formal Verification, Manual Review, Static Analysis |
+
+CBKToken passed all 26 ERC-20 compliance properties in CertiK's formal verification.
+
 ## Dependencies
 
 - This project uses **OpenZeppelin Contracts version 5.4.0**.
@@ -72,6 +86,7 @@ For reproducible builds / source verification:
 | --- | --- | --- |
 | CBKToken | [`0x61Fc6FFff56d7BCFD0a1EB865eBDc4ddd1CF2bBC`](https://etherscan.io/address/0x61Fc6FFff56d7BCFD0a1EB865eBDc4ddd1CF2bBC#code) | source verified (Etherscan · Blockscout · Sourcify) |
 | TokenSwap | [`0x81c9F41e46ab129c56F080F6FB3D36D73EEAfB88`](https://etherscan.io/address/0x81c9F41e46ab129c56F080F6FB3D36D73EEAfB88#code) | source verified (Etherscan · Blockscout · Sourcify) · swap not yet enabled (`allowance` = 0) |
+| Distribution Safe | [`0xC283649C0628535A8E4A9d3b906f354C2cE4BAf4`](https://etherscan.io/address/0xC283649C0628535A8E4A9d3b906f354C2cE4BAf4) | Safe multisig, 2-of-3 signers · received the entire supply at deployment |
 
 Old CBK token (migration source): [`0xD85a6Ae55a7f33B0ee113C234d2EE308EdeAF7fD`](https://etherscan.io/address/0xD85a6Ae55a7f33B0ee113C234d2EE308EdeAF7fD)
 
